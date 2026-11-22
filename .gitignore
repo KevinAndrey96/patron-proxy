@@ -1,0 +1,14 @@
+# Build artifacts
+*.class
+bin/
+build/
+dist/
+
+# NetBeans / IDE
+nbproject/private/
+.idea/
+*.iml
+.vscode/
+
+# OS
+.DS_Store
