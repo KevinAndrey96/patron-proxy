@@ -1,34 +1,30 @@
 package Proxy;
 
-   public abstract class Sujeto {
+/**
+ * Interfaz / Clase base abstracta del patrón Proxy.
+ * Define las operaciones comunes que tanto el SujetoReal como el Proxy implementan.
+ */
+public abstract class Sujeto {
 
-  /*
-     * @param nombre
-    */
-     public Sujeto(String nombre) { 
-         _nombre = nombre; 
+    private final String _nombre;
+
+    public Sujeto(String nombre) {
+        this._nombre = nombre;
     }
 
-     @Override
-     public String toString() { 
-          return _nombre; 
+    public String getNombre() {
+        return _nombre;
     }
 
+    @Override
+    public String toString() {
+        return _nombre;
+    }
 
+    public abstract void metodo1();
+    public abstract void metodo2();
 
-     public abstract void metodo1();
-     public abstract void metodo2();
-
-
-
-     public void status (Sujeto sujeto) {
-         Proxy p;
-         p = (Proxy) sujeto;
-         p.toString();
-     }   
-                       
-
-
-     private final String  _nombre;
-
+    public void status() {
+        System.out.println(this.toString());
+    }
 }
