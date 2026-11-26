@@ -1,0 +1,41 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: Java ${{ matrix.java }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        java: [ "17", "21", "25" ]
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v7
+
+      - name: Set up JDK ${{ matrix.java }}
+        uses: actions/setup-java@v6
+        with:
+          java-version: ${{ matrix.java }}
+          distribution: temurin
+          cache: maven
+
+      - name: Compile with -Werror, test and package
+        run: mvn -B verify
+
+      - name: Command line smoke test
+        run: |
+          java -jar target/proxy-pattern.jar | tee output.txt
+          grep -q "Consultas al archivo real    : 4" output.txt
+          grep -q "NOM-2018   acceso denegado (confidencial)" output.txt
+          java -jar target/proxy-pattern.jar --rol auditor NOM-2018 | grep -q "Nómina de diciembre 2018"
+          if java -jar target/proxy-pattern.jar --rol gerente; then exit 1; fi
