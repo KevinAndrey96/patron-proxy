@@ -1,20 +1,5 @@
-# Compiled Java classes and binaries
-*.class
-bin/
-build/
-dist/
-*.jar
-*.war
-
-# IDE files (NetBeans, IntelliJ, Eclipse, VS Code)
-nbproject/
+target/
 .idea/
-*.iml
-.project
-.classpath
-.settings/
 .vscode/
-
-# OS metadata
+*.iml
 .DS_Store
-Thumbs.db
